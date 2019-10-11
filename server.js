@@ -1,7 +1,7 @@
 const express = require("express");
-const logger = require("morgan");
+const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
-
+const path = require("path");
 
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -9,17 +9,27 @@ const cheerio = require("cheerio");
 
 const db = require("./models");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 
-app.use(logger("dev"));
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+
+app.engine("handlebars", exphbs({ defaultLayout: "home" }));
+app.set("view engine", "handlebars");
+app.set('index', __dirname + '/views');
+
+// app.get("/", function (req, res) {
+//   db.Article.find({ saved: false }, function (err, result) {
+//       if (err) throw err;
+//       res.render("index", {result})
+//   });
 
 app.get("/scrape", function(req, res) {
     
@@ -105,5 +115,5 @@ app.get("/scrape", function(req, res) {
 
   
   app.listen(PORT, function() {
-    console.log("App running on port " + PORT + "!");
+    console.log("App running on port " + PORT)
   });
