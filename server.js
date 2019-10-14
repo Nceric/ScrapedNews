@@ -25,11 +25,11 @@ app.engine("handlebars", exphbs({ defaultLayout: "home" }));
 app.set("view engine", "handlebars");
 app.set('index', __dirname + '/views');
 
-// app.get("/", function (req, res) {
-//   db.Article.find({ saved: false }, function (err, result) {
-//       if (err) throw err;
-//       res.render("index", {result})
-//   });
+app.get("/", function (req, res) {
+  db.Article.find({ saved: false }, function (err, result) {
+      if (err) throw err;
+      res.render("index", {result})
+  });
 
 app.get("/scrape", function(req, res) {
     
@@ -107,11 +107,11 @@ app.get("/scrape", function(req, res) {
         res.json(err);
       });
   });
+});
 
   const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
   mongoose.connect(MONGODB_URI);
-
 
   
   app.listen(PORT, function() {
