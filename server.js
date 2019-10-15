@@ -7,7 +7,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 
-const db = require("./models");
+const db = require("./modelss");
 
 const PORT = process.env.PORT || 3000;
 
@@ -25,6 +25,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "home" }));
 app.set("view engine", "handlebars");
 app.set('index', __dirname + '/views');
 
+
 app.get("/", function (req, res) {
   db.Article.find({ saved: false }, function (err, result) {
       if (err) throw err;
@@ -33,7 +34,7 @@ app.get("/", function (req, res) {
 
 app.get("/scrape", function(req, res) {
     
-    axios.get("https://www.latimes.com/").then(function(response) {
+    axios.get("http://www.echojs.com").then(function(response) {
   
       var $ = cheerio.load(response.data);
 
@@ -107,6 +108,29 @@ app.get("/scrape", function(req, res) {
         res.json(err);
       });
   });
+});
+
+app.post('/save/:id', function(req, res) {
+  db.Article.findByIdAndUpdate(req.params.id, {
+      $set: { saved: true}
+      },
+      { new: true },
+      function(error, result) {
+          if (error) {
+              console.log(error);
+          } else {
+              res.redirect('/');
+          }
+      });
+});
+
+app.get("/saves", function (req, res) {
+  var savedArticles = [];
+  db.Article.find({ saved: true }, function (err, saved) {
+      if (err) throw err;
+      savedArticles.push(saved)
+      res.render("saves", { saved })
+  })
 });
 
   const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
