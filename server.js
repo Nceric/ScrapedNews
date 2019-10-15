@@ -7,7 +7,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 
-const db = require("./modelss");
+const db = require("./models");
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,7 +19,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"));
+app.use('/public', express.static(__dirname + '/public'));
+
 
 app.engine("handlebars", exphbs({ defaultLayout: "home" }));
 app.set("view engine", "handlebars");
@@ -27,7 +28,7 @@ app.set('index', __dirname + '/views');
 
 
 app.get("/", function (req, res) {
-  db.Article.find({ saved: false }, function (err, result) {
+  db.Article.find({}, function (err, result) {
       if (err) throw err;
       res.render("index", {result})
   });

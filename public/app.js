@@ -1,22 +1,25 @@
 
+// Grab the articles as a json
 $.getJSON("/articles", function(data) {
-   
+    // For each one
     for (var i = 0; i < data.length; i++) {
-   
+      // Display the apropos information on the page
       $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     }
   });
-
-
+  
+  
+  // Perform new scrape on button click
   $("#scrape").on("click", function (event) {
     event.preventDefault();
     $.get("/scrape", function (data) {
         location.reload();
+        console.log("works");
     });
   });
   
   
-  
+  // Saved articles
   $("#savedArticle").on("click", function (event) {
     event.preventDefault();
     let id = $(this).children().val();
@@ -31,7 +34,7 @@ $.getJSON("/articles", function(data) {
   });
   
   
-  
+  // Delete saved articles
   $("#delete-article").on("click", function (event) {
     event.preventDefault();
     let id = $(this).children().val();
@@ -44,3 +47,4 @@ $.getJSON("/articles", function(data) {
     })
     location.reload();
   });
+  
