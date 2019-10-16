@@ -33,10 +33,10 @@
           <div class="article my-3">
             <h5>{{title}}</h5>
             <p>{{summary}}</p>
-              <a href={{link}} target="_blank">Read More</a>
-              <form action="/save/{{this.id}}" method="POST" id="save-article" class="d-inline">
+              <a href={{link}} target="_blank" href="/">Read More</a>
+              <form action="/saves/{{this.id}}" method="POST" id="save-article" class="d-inline">
                   <input type="hidden" name="id" value={{_id}}>
-                  <button class="btn btn-link ml-3" id="needsID" type="submit">Save Article</button>
+                  <button class="btn btn-link ml-3" id="savedBtn" type="submit">Save Article</button>
               </form>
           </div>
       {{/each}}

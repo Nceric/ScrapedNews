@@ -14,13 +14,34 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/views/index.handlebars">Home <span class="sr-only">(current)</span></a>
-      <a class="btn btn-primary navbar-btn">Scrape</a>
+      <a class="nav-item nav-link active" href=""><span class="sr-only">(current)</span></a>
+      <a class="btn btn-primary navbar-btn" id="scrape" href="/">Scrape</a>
       <a class="nav-item nav-link" href="">Saved</a>
    
+
+  <div class="container p-3 containerr">
+<div class="row">
+  <div class="col-md-12">
+    {{#each saved}}
+        <div class="article my-3">
+          <h5>{{title}}</h5>
+          <p>{{summary}}</p>
+            <a href={{link}} target="_blank">Read More</a>
+              <form action="/delete/{{this.id}}" method="POST" id="delete-article" class="d-inline">
+                  <input type="hidden" name="id" value={{_id}}>
+                  <button class="btn btn-link ml-3" id="deleteBtn" type="submit">Delete</button>
+              </form>
+        </div>
+      {{/each}}
+  </div>
+</div>
+</div>
+
+
    
-   {{!-- <script src="../public/app.js"></script> --}}
+   
     
     </div>
   </div>
 </nav>
+{{!-- <script src="../public/app.js"></script> --}}

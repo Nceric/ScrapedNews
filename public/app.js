@@ -14,13 +14,13 @@ $.getJSON("/articles", function(data) {
     event.preventDefault();
     $.get("/scrape", function (data) {
         location.reload();
-        console.log("works");
+        console.log("im good");
     });
   });
   
   
   // Saved articles
-  $("#savedArticle").on("click", function (event) {
+  $("#saveBtn").on("click", function (event) {
     event.preventDefault();
     let id = $(this).children().val();
     let data = {

@@ -125,8 +125,8 @@ app.post('/saves/:id', function(req, res) {
       });
 });
 
-app.get("/views/saves", function (req, res) {
-  var savedArticles = [];
+app.get("/saves", function (req, res) {
+  const savedArticles = [];
   db.Article.find({ saved: true }, function (err, saved) {
       if (err) throw err;
       savedArticles.push(saved)
