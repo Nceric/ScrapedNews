@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
 
 app.get("/scrape", function(req, res) {
     
-    axios.get("http://www.echojs.com").then(function(response) {
+    axios.get("http://www.latimes.com").then(function(response) {
   
       var $ = cheerio.load(response.data);
 
@@ -111,7 +111,7 @@ app.get("/scrape", function(req, res) {
   });
 });
 
-app.post('/save/:id', function(req, res) {
+app.post('/saves/:id', function(req, res) {
   db.Article.findByIdAndUpdate(req.params.id, {
       $set: { saved: true}
       },
@@ -125,7 +125,7 @@ app.post('/save/:id', function(req, res) {
       });
 });
 
-app.get("/saves", function (req, res) {
+app.get("/views/saves", function (req, res) {
   var savedArticles = [];
   db.Article.find({ saved: true }, function (err, saved) {
       if (err) throw err;
